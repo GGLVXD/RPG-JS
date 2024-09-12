@@ -68,10 +68,6 @@ export class RpgServerEngine {
         this.io = io
         this.inputOptions = inputOptions
         this.envs = inputOptions.envs || {}
-        if (this.inputOptions.workers) {
-            console.log('workers enabled')
-            this.workers = this.gameEngine.createWorkers(this.inputOptions.workers).load()
-        }
     }
 
     private async _init() {

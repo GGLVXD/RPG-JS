@@ -3,7 +3,6 @@ import { EventEmitter } from './EventEmitter'
 import { RpgCommonPlayer } from './Player'
 import { constructor, Control, Controls, Direction } from '@rpgjs/types'
 import { RpgPlugin } from './Plugin'
-import { GameWorker } from './Worker'
 import { HitObject } from './Hit'
 import { RpgShape } from './Shape'
 import { TiledObjectClass } from '@rpgjs/tiled'
@@ -31,10 +30,6 @@ export class RpgCommonGame extends EventEmitter {
 
     start(world) {
         this.world = world
-    }
-
-    createWorkers(options: any) {
-        return new GameWorker(options)
     }
 
     addObject(_class, playerId?: string) {
