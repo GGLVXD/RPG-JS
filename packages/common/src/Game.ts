@@ -6,7 +6,13 @@ import { RpgPlugin } from './Plugin'
 import { HitObject } from './Hit'
 import { RpgShape } from './Shape'
 import { TiledObjectClass } from '@rpgjs/tiled'
-import { InjectContext } from './Inject'
+import { Control, Controls, Direction } from '@rpgjs/types'
+import { EventEmitter } from './EventEmitter'
+import { HitObject } from './Hit'
+import { RpgCommonPlayer } from './Player'
+import { RpgPlugin } from './Plugin'
+import { RpgShape } from './Shape'
+import { generateUID } from './Utils'
 
 export enum GameSide {
     Server = 'server',
@@ -18,9 +24,11 @@ export class RpgCommonGame extends EventEmitter {
     events: any
     world: any
     side: GameSide
+    worker: Worker
 
-    initialize(side: GameSide) {
+    initialize(side: GameSide, worker: Worker) {
         this.side = side
+        this.worker = worker
         this.events = {} // events for all player in map
     }
 

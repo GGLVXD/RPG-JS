@@ -138,7 +138,7 @@ export default async (modules: ModuleType[], options: RpgClientEntryPointOptions
         onWindowResize: HookClient.WindowResize
     }
 
-    await loadModules(modules, {
+    loadModules(modules, {
         side: 'client',
         relations: {
             player: relations,
