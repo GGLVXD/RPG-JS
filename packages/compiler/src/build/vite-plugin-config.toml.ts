@@ -222,11 +222,11 @@ export function loadSpriteSheet(directoryName: string, modulePath: string, optio
         else {
             const dimensions = sizeOf(lastImagePath)
             propImagesString = `
-            ${importSprites?.variablesString}.images = {
+            ${importSprites?.variablesString}.$decorator.images = {
                 ${objectString}
             }
-            ${importSprites?.variablesString}.prototype.width = ${dimensions.width}
-            ${importSprites?.variablesString}.prototype.height = ${dimensions.height}
+            ${importSprites?.variablesString}.$decorator.width = ${dimensions.width}
+            ${importSprites?.variablesString}.$decorator.height = ${dimensions.height}
         `
         }
     }
@@ -505,7 +505,9 @@ export default function configTomlPlugin(options: ClientBuildConfigOptions = {},
                             io,
                             globalConfig,
                             envs: ${envsString}
-                        }).start()
+                        }).then((engine) => {
+                            engine.start()
+                        })
                     });
                     `
                 }

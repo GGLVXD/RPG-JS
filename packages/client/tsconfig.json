@@ -24,7 +24,7 @@
       "skipLibCheck": true
     },
     "include": [
-        "src"
+        "src",
+        "node_modules/canvasengine/*"
     ],
-    
   }

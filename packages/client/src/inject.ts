@@ -1,6 +1,6 @@
-import { InjectContext } from "@rpgjs/common";
+import { Context, inject as injector } from "@signe/di";
 
-let instanceContext: InjectContext | null = null
+let context: Context | null = null
 
 /**
  * Dependency injection function for RPGJS client side.
@@ -21,14 +21,18 @@ let instanceContext: InjectContext | null = null
  * const client = inject(RpgClientEngine)
  * ```
  */
-export function inject<T>(service: new (...args: any[]) => T, args: any[] = []): T {
-    return instanceContext!.inject(service, args);
+export function inject<T>(service: (new (...args: any[]) => T) | string, _context?: Context): T {
+    const c = _context ?? context
+    if (!c) throw new Error("Context is not set. use setInject() to set the context");
+    return injector(c, service);
 }
 
-export function setInject(context: InjectContext) {
-    instanceContext = context;
+export function setInject(_context: Context) {
+    context = _context;
 }
 
 export function clearInject() {
-    instanceContext = null
+    context = null
 }
+
+export const ConfigToken = 'ConfigToken'

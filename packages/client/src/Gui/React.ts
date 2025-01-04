@@ -3,11 +3,9 @@ import { createElement, Fragment, useState, createContext, useEffect, useContext
 import { RpgClientEngine } from '../RpgClientEngine';
 import { EVENTS_MAP, RpgRenderer } from '../Renderer';
 import { BehaviorSubject, map, tap, combineLatest, Subject } from 'rxjs';
-import type { Gui } from './Gui';
 import { inject } from '../inject';
 import { RpgPlugin } from '@rpgjs/common';
 
-export { useStore } from '@nanostores/react'
 export const RpgReactContext = createContext({} as any)
 
 // TODO
@@ -62,9 +60,9 @@ export const useEventPropagator = () => {
             const renderer = inject(RpgRenderer)
 
             EVENTS_MAP.MouseEvent.forEach(eventType => {
-                const listener = event => renderer.propagateEvent(event)
-                element.addEventListener(eventType, listener);
-                eventListeners[eventType] = listener;
+                // const listener = event => renderer.propagateEvent(event)
+                // element.addEventListener(eventType, listener);
+                // eventListeners[eventType] = listener;
             });
 
             return () => {
@@ -84,10 +82,10 @@ export class ReactGui {
     private _gui: BehaviorSubject<any[]> = new BehaviorSubject([] as any)
     //private _tooltips: BehaviorSubject<any[]> = new BehaviorSubject([] as any)
 
-    constructor(rootEl: HTMLDivElement, parentGui: Gui) {
+    constructor(rootEl: HTMLDivElement, parentGui: any) {
         this.app = createRoot(rootEl)
         this.clientEngine = parentGui.clientEngine
-        this.renderer = this.clientEngine.renderer
+        //this.renderer = this.clientEngine.renderer
 
         const GuiTooltip = (ui): any => {
             return () => {
@@ -179,7 +177,7 @@ export function RpgGame({
 
         return () => {
             server?.world.clear()
-            client.reset()
+           // client.reset()
             RpgPlugin.clear()
             server?.io.clear()
             server?.io.events.clear()

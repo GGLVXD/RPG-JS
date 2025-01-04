@@ -1,0 +1,11 @@
+<Canvas width={@renderer.width} height={@renderer.height}>
+  <SceneMap />
+</Canvas>
+
+<script>
+  import { inject } from "../inject";
+  import { RpgRenderer } from "../Renderer";
+  import SceneMap from "./map.ce";
+
+  const renderer = inject(RpgRenderer);
+</script>

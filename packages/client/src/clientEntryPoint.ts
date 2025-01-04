@@ -1,9 +1,11 @@
-import { InjectContext, HookClient, loadModules, ModuleType } from '@rpgjs/common'
-import { GameEngineClient } from './GameEngine'
+import { HookClient, InjectContext, ModuleType, loadModules } from '@rpgjs/common'
 import { RpgClientEngine } from './RpgClientEngine'
-import { setInject } from './inject'
+import { ConfigToken, setInject } from './inject'
+import { RpgRenderer } from './Renderer'
+import { Context, inject, injector, provide } from '@signe/di'
+import { GameEngineClient } from './GameEngine'
 
-interface RpgClientEntryPointOptions {
+export interface RpgClientEntryPointOptions {
     /** 
      * Represents socket io client but you can put something else (which is the same schema as socket io)
      * 
@@ -95,9 +97,11 @@ interface RpgClientEntryPointOptions {
     serverFps?: number
 
     envs?: object
+
+    context?: Context
 }
 
-export default (modules: ModuleType[], options: RpgClientEntryPointOptions): RpgClientEngine => {
+export default async (modules: ModuleType[], options: RpgClientEntryPointOptions): Promise<RpgClientEngine> => {
 
     if (!options.globalConfig) options.globalConfig = {}
 
@@ -134,7 +138,7 @@ export default (modules: ModuleType[], options: RpgClientEntryPointOptions): Rpg
         onWindowResize: HookClient.WindowResize
     }
 
-    loadModules(modules, {
+    await loadModules(modules, {
         side: 'client',
         relations: {
             player: relations,
@@ -143,8 +147,23 @@ export default (modules: ModuleType[], options: RpgClientEntryPointOptions): Rpg
         }
     })
 
-    const context = new InjectContext()
+    const context = options.context ?? new Context()
+
     setInject(context)
 
-    return context.inject(RpgClientEngine, [options])
+    const providers = [
+        {
+            provide: ConfigToken,
+            useValue: options
+        },
+        GameEngineClient,
+        RpgRenderer,
+        RpgClientEngine,
+    ]
+
+    injector(context, providers)
+
+    const engine = inject(context, RpgClientEngine)
+
+    return engine
 }
