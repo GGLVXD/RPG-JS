@@ -1,49 +1,58 @@
 import { GameSide, RpgCommonGame, RpgCommonPlayer } from "@rpgjs/common";
 import { ComputedSignal, computed, signal } from "canvasengine";
+import { load, sync, users } from "@signe/sync";
+
+class GameObject {
+  position = {
+    x: signal(0),
+    y: signal(0),
+  };
+  @sync() direction = signal(0);
+  @sync() graphics = signal([]);
+}
+
+class Scene {
+  @sync(GameObject) users = signal({});
+}
 
 export class GameEngineClient extends RpgCommonGame {
+  scene = new Scene();
   playerId = signal("");
   session = signal("");
-  objects = signal<any[]>([]);
-  player: ComputedSignal<RpgCommonPlayer | null> = computed(() => this.objects().find(object => object.id == this.playerId()))
-
+  player: ComputedSignal<RpgCommonPlayer | null> = computed(
+    () => this.objects()[this.playerId()]
+  );
   animationX: any;
   animationY: any;
+  lastObjects = {
+    users: {},
+  };
 
   initialize() {
     super.initialize(GameSide.Client);
   }
 
-  async updateObject(obj) {
-    const { playerId: id, params, localEvent, paramsChanged, isShape } = obj;
-    const findObject = this.objects().find((o: any) => o.id == id);
-    if (!findObject) {
-      const value = {
-        id,
-        ...params,
-        x: signal(params.position?.x ?? params.x),
-        y: signal(params.position?.y ?? params.y),
-        direction: signal(params.direction),
-      }
-      this.objects.mutate((objs) =>
-        objs.push(value)
-      );
-      // await this.physicScene.addObject(value, {
-      //   x: value.x(),
-      //   y: value.y(),
-      //   width: 32,
-      //   height: 32,
-      // });
-    } else {
-      if (paramsChanged.position?.x) {
-        // TODO
-      }
-      if (paramsChanged.position?.y) {
-       // TODO
-      }
-      if (paramsChanged.direction !== undefined) {
-        findObject.direction.set(paramsChanged.direction);
+  sync(obj, allData) {
+    if (!allData) return;
+
+    const _allData = structuredClone(allData)
+
+    for (const key in this.lastObjects.users) {
+      if (!(key in allData.users)) {
+        _allData.users[key] = "$delete";
       }
     }
+
+    load(this.scene, _allData, true);
+
+    this.lastObjects = allData;
+  }
+
+  get objects() {
+    return this.scene.users;
+  }
+
+  getScene() {
+    return this.scene;
   }
 }

@@ -1,1 +1,40 @@
-<Text text="Hello World" color="red" />
+<Viewport
+  clamp
+  screenWidth={@renderer.width} 
+  screenHeight={@renderer.height}
+  worldWidth 
+  worldHeight>
+  <TiledMap map={data} basePath="/" objectLayer={({name}) => 
+      <Container>
+        @for ((object,id) of objects) {
+          <Character object />
+        }
+      </Container>
+    }
+  />
+</Viewport>
+
+<script>
+    import { TiledMap } from '@canvasengine/presets'
+    import { effect, signal, computed } from 'canvasengine'
+    import Character from '../components/character.ce'
+    import { RpgRenderer } from "../Renderer";
+    import { inject } from "../inject";
+
+    const { data, objects } = defineProps()
+    const renderer = inject(RpgRenderer);
+
+    const worldWidth = computed(() => data()?.width * data()?.tilewidth)
+    const worldHeight = computed(() => data()?.height * data()?.tileheight)
+    const clamp = {
+      direction: "all"
+    }
+
+    const obj = signal({})
+
+    effect(() => {
+        obj.set({
+            ...objects()
+        })
+    })
+</script>

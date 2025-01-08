@@ -21,8 +21,8 @@ importers:
   packages/client:
     dependencies:
       '@canvasengine/presets':
-        specifier: 2.0.0-beta.5
-        version: 2.0.0-beta.5
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@rpgjs/common':
         specifier: workspace:*
         version: link:../common
@@ -32,12 +32,15 @@ importers:
       '@signe/di':
         specifier: ^1.0.2
         version: 1.0.2
+      '@signe/sync':
+        specifier: ^1.0.3
+        version: 1.0.3
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
       canvasengine:
-        specifier: 2.0.0-beta.5
-        version: 2.0.0-beta.5
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -49,8 +52,8 @@ importers:
         version: 3.0.1
     devDependencies:
       '@canvasengine/compiler':
-        specifier: 2.0.0-beta.5
-        version: 2.0.0-beta.5(@types/node@20.14.10)(jiti@1.21.6)(sass@1.77.6)(terser@5.31.1)(yaml@2.4.5)
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7(@types/node@20.14.10)(jiti@1.21.6)(sass@1.77.6)(terser@5.31.1)(yaml@2.4.5)
       '@rpgjs/types':
         specifier: workspace:*
         version: link:../types
@@ -70,21 +73,24 @@ importers:
         specifier: workspace:*
         version: link:../types
       rbush:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       rxjs:
-        specifier: ^7.8.1
+        specifier: ^7.8.0
         version: 7.8.1
       sat:
         specifier: ^0.9.0
         version: 0.9.0
+      workerpool:
+        specifier: ^6.4.0
+        version: 6.5.1
     devDependencies:
       '@rpgjs/compiler':
-        specifier: workspace:*
-        version: link:../compiler
+        specifier: ^4.3.0
+        version: 4.3.0(@types/node@20.14.10)(esbuild@0.24.2)(jsdom@21.1.2)(terser@5.31.1)(vue@3.4.31(typescript@5.7.2))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.1.0)
       typescript:
-        specifier: ^5.5.3
-        version: 5.5.3
+        specifier: ^5.0.4
+        version: 5.7.2
 
   packages/compiler:
     dependencies:
@@ -443,8 +449,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       rxjs:
-        specifier: 7.8.1
-        version: 7.8.1
+        specifier: 7.8.0
+        version: 7.8.0
       sat:
         specifier: ^0.9.0
         version: 0.9.0
@@ -458,9 +464,6 @@ importers:
       '@rpgjs/compiler':
         specifier: workspace:*
         version: link:../compiler
-      '@types/node':
-        specifier: ^20.14.10
-        version: 20.14.10
       typescript:
         specifier: ^5.0.4
         version: 5.5.3
@@ -1440,11 +1443,11 @@ packages:
     peerDependencies:
       pixi.js: '>=6.0.4 <9.0.0'
 
-  '@canvasengine/compiler@2.0.0-beta.5':
-    resolution: {integrity: sha512-Ujkw/2c7RIHi15b6qnEMh2hG1aFkGHTS9Cn3oB5n0+cTH8zQ7KmjMJ//u4xSoJdnyQV5GdhqQRki71v61pbioA==}
+  '@canvasengine/compiler@2.0.0-beta.7':
+    resolution: {integrity: sha512-Ug4V9bFxYcuAzXc6zuu6Dox/IqTD/jbU0+qxigBrVaL22Qv9j2KqzS9tycaIzKGfXDp/LdjACvdDkqdpEjg7kQ==}
 
-  '@canvasengine/presets@2.0.0-beta.5':
-    resolution: {integrity: sha512-59Mvr1U/yiY+SmCyjHC37LrW69FgKg4M2AfPxFe7aPCxGsUlGKpJqCHrVa9j0T0mDGBY5WkhOVwiJxRp0Q0Nig==}
+  '@canvasengine/presets@2.0.0-beta.7':
+    resolution: {integrity: sha512-VfTCQQY0wl+BVnagBMjncdDQ5g1YE8M9OEJTaItXixS0z5s+cKC25QkS841nup5wL+J26x5CF+Ywve1Y99FobA==}
 
   '@esbuild-plugins/node-globals-polyfill@0.2.3':
     resolution: {integrity: sha512-r3MIryXDeXDOZh7ih1l/yE9ZLORCd5e8vWg02azWRGj5SPTuoh69A2AIyn0Z31V/kHBfZ4HgWJ+OK3GTTwLmnw==}
@@ -2811,8 +2814,11 @@ packages:
   '@signe/di@1.0.2':
     resolution: {integrity: sha512-eEylJXYyDNmugrmniiqi48xV86swOAb/QXoPD8Xw8N8fYFZj2r0QcAnPDK6vxuwFMb0g2TLCJlbkGvZRFxvHGw==}
 
-  '@signe/reactive@1.0.1':
-    resolution: {integrity: sha512-5RyjcJavgPCJBi28mxXn3arbEdsCb8I7jrFZOeaxrCrs6EjPaBKVHKAWrJVsoRe5jD1ZuXRS0uIcDS1pgT2DAw==}
+  '@signe/reactive@1.0.3':
+    resolution: {integrity: sha512-deaNhyYSrFP+VZQ+uwD2e+PmZ+ivk1/Peoj6rEOR3tHEIi3gl7lYc0FiVCDXsWGtXnRFwO/KyLhvuyHSQ0+rtw==}
+
+  '@signe/sync@1.0.3':
+    resolution: {integrity: sha512-lVmcn2r4DfGY/2mnid/jp8O3dp6yhYxRSPzOclCrCSVwn689UXZCUC7cX5qQOJeNCBwbVSil4hI5Gw8s5eIAhg==}
 
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
@@ -3362,8 +3368,8 @@ packages:
   caniuse-lite@1.0.30001640:
     resolution: {integrity: sha512-lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==}
 
-  canvasengine@2.0.0-beta.5:
-    resolution: {integrity: sha512-2N0YiOLFL/dqXGuTJSEB8J9RuiOZzD6/qeyMC1LcK6p5tHkHiJxEjeI3/fJ62yPMDYhFt+8PXJnLRsD1jOvt6Q==}
+  canvasengine@2.0.0-beta.7:
+    resolution: {integrity: sha512-sJAWyPacvjjlqsAQV/gNJg9ceNDXQNZuuxzWl4WGllv9dYqHCKb69c91Sh/97qjz6uD77x2ablvP65cCzVWaUw==}
 
   chai@4.4.1:
     resolution: {integrity: sha512-13sOfMv2+DWduEU+/xbun3LScLoqN17nBeTLUsmDfKdoiC1fr0n9PU4guu4AhRcOVFk/sW8LyZWHuhWtQZiF+g==}
@@ -3770,6 +3776,10 @@ packages:
 
   event-lite@0.1.3:
     resolution: {integrity: sha512-8qz9nOz5VeD2z96elrEKD2U433+L3DWdUdDkOINLGOJvx1GsMBbMn0aCeu28y8/e85A6mCigBiFlYMnTBEGlSw==}
+
+  event-target-shim@6.0.2:
+    resolution: {integrity: sha512-8q3LsZjRezbFZ2PN+uP+Q7pnHUMmAOziU2vA2OwoFaKIXxlxl38IylhSSgUorWu/rf4er67w0ikBqjBFk/pomA==}
+    engines: {node: '>=10.13.0'}
 
   eventemitter3@3.1.2:
     resolution: {integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==}
@@ -4621,6 +4631,9 @@ packages:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
 
+  partysocket@1.0.3:
+    resolution: {integrity: sha512-7sSojS4oCRK1Fe1h+Sa0Za5dwOf+M9VksQlynD8yqwGpLvnO4oxx9ppmOSeh6CJTMbF5gbnvUQKMK525QSBdBw==}
+
   path-is-absolute@1.0.1:
     resolution: {integrity: sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==}
     engines: {node: '>=0.10.0'}
@@ -4809,9 +4822,6 @@ packages:
 
   rbush@3.0.1:
     resolution: {integrity: sha512-XRaVO0YecOpEuIvbhbpTrZgoiI6xBlz6hnlr6EHhd+0x9ase6EmeN+hdwwUaJvLcsFFQ8iWVF1GAK1yB0BWi0w==}
-
-  rbush@4.0.0:
-    resolution: {integrity: sha512-F5xw+166FYDZI6jEcz+sWEHL5/J+du3kQWkwqWrPKb6iVoLPZh+2KhTS4OoYqrw1v/RO1xQe6WsLwBvrUAlvXw==}
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -7294,7 +7304,7 @@ snapshots:
     dependencies:
       pixi.js: 8.6.6
 
-  '@canvasengine/compiler@2.0.0-beta.5(@types/node@20.14.10)(jiti@1.21.6)(sass@1.77.6)(terser@5.31.1)(yaml@2.4.5)':
+  '@canvasengine/compiler@2.0.0-beta.7(@types/node@20.14.10)(jiti@1.21.6)(sass@1.77.6)(terser@5.31.1)(yaml@2.4.5)':
     dependencies:
       acorn: 8.14.0
       peggy: 4.2.0
@@ -7313,11 +7323,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@canvasengine/presets@2.0.0-beta.5':
+  '@canvasengine/presets@2.0.0-beta.7':
     dependencies:
       '@pixi/tilemap': 5.0.1(pixi.js@8.6.6)
       '@rpgjs/tiled': 4.3.0
-      canvasengine: 2.0.0-beta.5
+      canvasengine: 2.0.0-beta.7
       pixi.js: 8.6.6
       revolt-fx: 1.3.5(pixi.js@8.6.6)
     transitivePeerDependencies:
@@ -8543,9 +8553,14 @@ snapshots:
 
   '@signe/di@1.0.2': {}
 
-  '@signe/reactive@1.0.1':
+  '@signe/reactive@1.0.3':
     dependencies:
       rxjs: 7.8.1
+
+  '@signe/sync@1.0.3':
+    dependencies:
+      '@signe/reactive': 1.0.3
+      partysocket: 1.0.3
 
   '@sinclair/typebox@0.27.8': {}
 
@@ -8944,6 +8959,7 @@ snapshots:
   '@types/node@20.14.10':
     dependencies:
       undici-types: 5.26.5
+    optional: true
 
   '@types/offscreencanvas@2019.7.3': {}
 
@@ -9313,10 +9329,10 @@ snapshots:
 
   caniuse-lite@1.0.30001640: {}
 
-  canvasengine@2.0.0-beta.5:
+  canvasengine@2.0.0-beta.7:
     dependencies:
       '@barvynkoa/particle-emitter': 0.0.1(pixi.js@8.6.6)
-      '@signe/reactive': 1.0.1
+      '@signe/reactive': 1.0.3
       howler: 2.2.4
       pixi-filters: 6.0.5(pixi.js@8.6.6)
       pixi-viewport: 6.0.3(pixi.js@8.6.6)
@@ -9852,6 +9868,8 @@ snapshots:
       - utf-8-validate
 
   event-lite@0.1.3: {}
+
+  event-target-shim@6.0.2: {}
 
   eventemitter3@3.1.2: {}
 
@@ -10761,6 +10779,10 @@ snapshots:
 
   parseurl@1.3.3: {}
 
+  partysocket@1.0.3:
+    dependencies:
+      event-target-shim: 6.0.2
+
   path-is-absolute@1.0.1: {}
 
   path-key@3.1.1: {}
@@ -11017,10 +11039,6 @@ snapshots:
       unpipe: 1.0.0
 
   rbush@3.0.1:
-    dependencies:
-      quickselect: 2.0.0
-
-  rbush@4.0.0:
     dependencies:
       quickselect: 2.0.0
 

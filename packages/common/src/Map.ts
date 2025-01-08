@@ -1,16 +1,16 @@
-import { MapClass, Tile, TiledMap, TiledObjectClass } from '@rpgjs/tiled'
-import { HitBox, MovingHitbox, Tick } from '@rpgjs/types'
-import { Observable, Subject, filter, from, map, mergeMap, takeUntil } from 'rxjs'
+import { HitObject } from './Hit'
 import SAT from 'sat'
-import { AbstractObject } from './AbstractObject'
-import { RpgCommonGame } from './Game'
-import { Hit, HitObject } from './Hit'
-import { PhysicScene } from './PhysicScene'
+import Utils, { random, intersection, generateUID, isString } from './Utils'
 import { RpgShape } from './Shape'
-import Utils, { generateUID, random } from './Utils'
-import { Vector2d } from './Vector2d'
+import { Hit } from './Hit'
 import { VirtualGrid } from './VirtualGrid'
 import { RpgCommonWorldMaps } from './WorldMaps'
+import { TiledLayer, TiledLayerType, TiledMap, Layer, Tileset, Tile, TiledObject, TiledObjectClass, MapClass } from '@rpgjs/tiled'
+import { Vector2d } from './Vector2d'
+import { AbstractObject } from './AbstractObject'
+import { RpgCommonGame } from './Game'
+import { Observable, map, Subject, takeUntil, mergeMap, from, filter } from 'rxjs'
+import { HitBox, MovingHitbox, Tick } from '@rpgjs/types'
 
 const buffer = new Map()
 const bufferClient = new Map()
@@ -47,12 +47,6 @@ export class RpgCommonMap extends MapClass {
     grid: VirtualGrid
     gridShapes: VirtualGrid
     gridTiles: VirtualGrid
-    physicScene: PhysicScene
-
-    constructor(private gameEngine: RpgCommonGame) {
-        super()
-        this.physicScene = new PhysicScene(this.gameEngine);
-    }
 
     get tileWidth() {
         return this.tilewidth

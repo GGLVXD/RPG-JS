@@ -1,1 +1,59 @@
-<Sprite />
+<Sprite sheet direction x y controls viewportFollow  />
+
+<script>
+  import { signal } from "canvasengine";
+  import { spritesheets } from "../Resources";
+  import { GameEngineClient } from "../GameEngine";
+  import { inject } from "../inject";
+
+  const { object, id } = defineProps();
+
+  const game = inject(GameEngineClient);
+  const direction = object.direction;
+  const x = object.position.x;
+  const y = object.position.y;
+
+  const graphic = object.graphics()[0].id;
+  const spritesheet = spritesheets.get(graphic);
+
+  const controls = signal({
+    down: {
+      repeat: true,
+      bind: "down",
+      keyDown() {
+        y.update((y) => y + 3);
+      },
+    },
+    up: {
+      repeat: true,
+      bind: "up",
+      keyDown() {
+        y.update((y) => y - 3);
+      },
+    },
+    left: {
+      repeat: true,
+      bind: "left",
+      keyDown() {
+        x.update((x) => x - 3);
+      },
+    },
+    right: {
+      repeat: true,
+      bind: "right",
+      keyDown() {
+        x.update((x) => x + 3);
+      },
+    },
+  });
+
+  const sheet = {
+    definition: spritesheet.$decorator,
+    playing: "stand",
+    params: {
+      direction,
+    },
+  };
+
+  const viewportFollow = computed(() => id() === game.playerId());
+</script>

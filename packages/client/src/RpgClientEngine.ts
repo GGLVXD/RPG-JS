@@ -91,6 +91,7 @@ export class RpgClientEngine {
 
     this.addSpriteSheet(this.options.spritesheets);
 
+    this.gameEngine.initialize()
     await this.renderer.init();
     const { maxFps } = this.options
 
@@ -211,42 +212,40 @@ export class RpgClientEngine {
         roomId: string;
         resetProps: string[];
       }) => {
-        if (!val.data) {
-          return;
-        }
-        const change = (prop, root = val, localEvent = false) => {
-          const list = root.data[prop];
-          const partial = root.partial[prop];
-          const isShape = prop == "shapes";
-          if (!partial) {
-            return;
-          }
-          if (val.resetProps.indexOf(prop) != -1) {
-            // todo
-          }
-          for (let key in partial) {
-            const obj = list[key];
-            const paramsChanged = partial ? partial[key] : undefined;
+        this.gameEngine.sync(val.partial, val.data)
+        // const change = (prop, root = val, localEvent = false) => {
+        //   const list = root.data[prop];
+        //   const partial = root.partial[prop];
+        //   const isShape = prop == "shapes";
+        //   if (!partial) {
+        //     return;
+        //   }
+        //   if (val.resetProps.indexOf(prop) != -1) {
+        //     // todo
+        //   }
+        //   for (let key in partial) {
+        //     const obj = list[key];
+        //     const paramsChanged = partial ? partial[key] : undefined;
 
-            if (obj == null || obj.deleted) {
-              // todo
-              continue;
-            }
+        //     if (obj == null || obj.deleted) {
+        //       // todo
+        //       continue;
+        //     }
 
-            if (!obj) continue;
+        //     if (!obj) continue;
 
-            this.gameEngine.updateObject({
-              playerId: key,
-              params: obj,
-              localEvent,
-              paramsChanged,
-              isShape,
-            });
-          }
-        };
-        change("users");
-        change("events");
-        change("shapes");
+        //     this.gameEngine.updateObject({
+        //       playerId: key,
+        //       params: obj,
+        //       localEvent,
+        //       paramsChanged,
+        //       isShape,
+        //     });
+        //   }
+        // };
+        // change("users");
+        // change("events");
+        // change("shapes");
       }
     );
   }

@@ -13,7 +13,7 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: [/@rpgjs/, 'esbuild', 'simple-room-client']
+      external: [/@rpgjs/, 'esbuild', 'simple-room-client', 'canvasengine', '@canvasengine/presets']
     },
   }
 })

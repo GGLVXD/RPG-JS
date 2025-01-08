@@ -1,11 +1,16 @@
 <Canvas width={@renderer.width} height={@renderer.height}>
-  <SceneMap />
+  <SceneMap data={sceneData} objects />
 </Canvas>
 
 <script>
   import { inject } from "../inject";
   import { RpgRenderer } from "../Renderer";
+  import { GameEngineClient } from "../GameEngine";
   import SceneMap from "./map.ce";
 
   const renderer = inject(RpgRenderer);
+  const game = inject(GameEngineClient)
+  const sceneName = renderer.currentSceneName();
+  const sceneData = renderer.currentSceneData;
+  const objects = game.objects
 </script>

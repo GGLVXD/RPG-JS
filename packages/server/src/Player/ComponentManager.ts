@@ -292,6 +292,7 @@ export const Components = {
 
 export class ComponentManager {
     layout: LayoutObject<any>
+    graphics: string[]
 
     /**
      * Give the spritesheet identifier
@@ -317,10 +318,20 @@ export class ComponentManager {
      * @memberof ComponentManager
      */
     setGraphic(graphic: string | number | (string | number)[]) {
-        const components = (Utils.isArray(graphic) ? graphic : [graphic]) as string[]
-        const col = [...components.map(value => ({ id: Utils.isString(value) ? 'graphic' : 'tile', value }))]
-        this.removeComponentById('center', 'graphic')
-        this.mergeComponent('center', col)
+        // const components = (Utils.isArray(graphic) ? graphic : [graphic]) as string[]
+        // const col = [...components.map(value => ({ id: Utils.isString(value) ? 'graphic' : 'tile', value }))]
+        // this.removeComponentById('center', 'graphic')
+        // this.mergeComponent('center', col)
+        if (Utils.isArray(graphic)) {
+            this.graphics = graphic.map(value => ({
+                id: value,
+            }))
+        }
+        else {
+            this.graphics = [{
+                id: graphic,
+            }]
+        }
     }
 
     /**

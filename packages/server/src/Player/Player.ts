@@ -1,41 +1,43 @@
-import { Direction, RpgCommonGame, RpgCommonMap, RpgCommonPlayer, RpgPlugin, Utils } from '@rpgjs/common'
-import merge from 'lodash.merge'
+import { RpgCommonPlayer, Utils, RpgPlugin, RpgCommonGame, RpgCommonMap, Direction } from '@rpgjs/common'
 import { Room, WorldClass } from 'simple-room'
-import { EventPosOption, RpgMap } from '../Game/Map'
-import { BattleManager } from './BattleManager'
-import { ClassManager } from './ClassManager'
-import { EffectManager } from './EffectManager'
-import { ElementManager } from './ElementManager'
-import { GoldManager } from './GoldManager'
-import { GuiManager } from './GuiManager'
+import { RpgMap, EventPosOption } from '../Game/Map'
+import { Query } from '../Query'
+import merge from 'lodash.merge'
 import { ItemManager } from './ItemManager'
-import { Frequency, MoveManager, Speed } from './MoveManager'
-import { ParameterManager } from './ParameterManager'
+import { GoldManager } from './GoldManager'
+import { StateManager } from './StateManager';
 import { SkillManager } from './SkillManager'
-import { StateManager } from './StateManager'
+import { ParameterManager } from './ParameterManager';
+import { EffectManager } from './EffectManager';
+import { ClassManager } from './ClassManager';
+import { ElementManager } from './ElementManager'
+import { GuiManager } from './GuiManager'
 import { VariableManager } from './VariableManager'
+import { Frequency, MoveManager, Speed } from './MoveManager'
+import { BattleManager } from './BattleManager'
 
-import { CameraOptions, LayoutObject, PositionXY_OptionalZ, SocketEvents, SocketMethods } from '@rpgjs/types'
-import { EventManager, EventMode } from '../Game/EventManager'
-import { RpgTiledWorldMap } from '../Game/WorldMaps'
-import { RpgClassMap } from '../Scenes/Map'
-import { inject } from '../inject'
 import {
-    AGI,
-    AGI_CURVE,
-    DEX,
-    DEX_CURVE,
-    INT,
-    INT_CURVE,
     MAXHP,
-    MAXHP_CURVE,
     MAXSP,
-    MAXSP_CURVE,
     STR,
-    STR_CURVE
+    INT,
+    DEX,
+    AGI,
+    MAXHP_CURVE,
+    MAXSP_CURVE,
+    STR_CURVE,
+    INT_CURVE,
+    DEX_CURVE,
+    AGI_CURVE
 } from '../presets'
 import { RpgServerEngine } from '../server'
+import { RpgClassMap } from '../Scenes/Map'
+import { RpgTiledWorldMap } from '../Game/WorldMaps'
+import { CameraOptions, PositionXY_OptionalZ, SocketEvents, SocketMethods, LayoutObject } from '@rpgjs/types'
 import { ComponentManager } from './ComponentManager'
+import { Subject } from 'rxjs'
+import { EventManager, EventMode } from '../Game/EventManager'
+import { inject } from '../inject'
 
 const {
     isPromise,
@@ -131,6 +133,7 @@ const playerSchemas = {
         right: layoutSchema,
         center: layoutSchema
     },
+    graphics: [{ id: String }],
 
     action: Number,
     map: String,
@@ -192,6 +195,7 @@ export class RpgPlayer extends RpgCommonPlayer {
     public _rooms = []
     public session: string | null = null
     public prevMap: string = ''
+    public graphics: string[] = []
 
     /** 
     * ```ts
@@ -491,9 +495,11 @@ export class RpgPlayer extends RpgCommonPlayer {
         if (!positions) positions = { x: 0, y: 0, z: 0 }
         if (!(positions as Position).z) (positions as Position).z = 0
         this.teleported++
-        await this.setPosition(positions as any)
+        this.position = positions as Position
         // delete last frame positions because when the character is teleported, no server reconciliation is needed on the client side
         this._lastFramePositions = undefined
+        // force interaction with event or shape
+        await this.isCollided(this.position)
         return (positions as Position)
     }
 
